@@ -81,7 +81,7 @@ df['day_sin'] = np.sin(df.day*(2.*np.pi/24))
 df['day_cos'] = np.cos(df.day*(2.*np.pi/24))
 df['month_sin'] = np.sin((df.month-1)*(2.*np.pi/12))
 df['month_cos'] = np.cos((df.month-1)*(2.*np.pi/12))
-''''
+'''
 
 ## Modelling
 
