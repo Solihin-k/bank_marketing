@@ -5,7 +5,7 @@ An Exploratory Data Analysis (EDA) project on bank marketing campaign for a term
 The dataset used for this project can be found [here](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing).
 
 ### The Problem
-
+![Term Deposit](/Images/term_deposit.jpg)
 
 The bank recently experienced a decline in the number of subcriptions for their [term deposit](https://www.investopedia.com/terms/t/termdeposit.asp). They have come up with ads for their existing clients to address this and would like to do a targeted marketing approach. They would like to predict which of their clients have a higher chance to subscribe for a term deposit.
 
