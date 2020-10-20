@@ -50,5 +50,22 @@ The implementation of this model will allow the bank to identify which clients t
 #### Correlation with target
 ![Correlation Heatmap](/Images/corr_heatmap.png)
 
+Contact duration is highly correlated witht the subscription outcome.
+
 #### Kernel Density Estimate plot of clients' age
-![Age KDE](Images/EDA_age_KDE.png)
+![Age KDE](/Images/EDA_age_KDE.png)
+
+A higher proportion of clients below 30 years old and above 60 years old subscribed for a term deposit.
+
+#### Distribution of contact duration
+![Contact Duration](/Images/EDA_duration.png)
+
+The longer the contact duration, it is more likely for the client to subscribe for a term deposit.
+
+#### Subscription outcome based on month of contact
+![Month](/Images/EDA_month.png)
+
+More than **60%** of the clients were contacted from May to August but the clients tend to not subscribe for a term deposit during this period.
+
+#### Subscription outcome based on job type
+![Job](/Images/EDA_job.png)
