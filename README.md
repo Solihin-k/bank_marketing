@@ -51,4 +51,4 @@ The implementation of this model will allow the bank to identify which clients t
 ![Correlation Heatmap](/Images/corr_heatmap.png)
 
 #### Kernel Density Estimate plot of clients' age
-!{Age KDE](Images/EDA_age_KDE.png)
+![Age KDE](Images/EDA_age_KDE.png)
