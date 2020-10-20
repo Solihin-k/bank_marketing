@@ -5,6 +5,8 @@ An Exploratory Data Analysis (EDA) project on bank marketing campaign for a term
 The dataset used for this project can be found [here](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing).
 
 ### The Problem
+
+
 The bank recently experienced a decline in the number of subcriptions for their [term deposit](https://www.investopedia.com/terms/t/termdeposit.asp). They have come up with ads for their existing clients to address this and would like to do a targeted marketing approach. They would like to predict which of their clients have a higher chance to subscribe for a term deposit.
 
 ### The Objective
@@ -18,7 +20,7 @@ The bank recently experienced a decline in the number of subcriptions for their 
 
 The implementation of this model will allow the bank to identify which clients to target.
 
-### Explaing the features
+### Features and Target
 
 #### Client data:
 1 - age (numeric) <br>
@@ -43,3 +45,6 @@ The implementation of this model will allow the bank to identify which clients t
 
 #### Target variable:
 17 - deposit: has the client subscribed a term deposit? (binary: 'yes','no')
+
+### EDA
+
