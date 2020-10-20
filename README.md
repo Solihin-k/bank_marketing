@@ -47,4 +47,8 @@ The implementation of this model will allow the bank to identify which clients t
 17 - deposit: has the client subscribed a term deposit? (binary: 'yes','no')
 
 ### EDA
+#### Correlation with target
+![Correlation Heatmap](/Images/corr_heatmap.png)
 
+#### Kernel Density Estimate plot of clients' age
+!{Age KDE](Images/EDA_age_KDE.png)
