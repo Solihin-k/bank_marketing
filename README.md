@@ -46,26 +46,50 @@ The implementation of this model will allow the bank to identify which clients t
 #### Target variable:
 17 - deposit: has the client subscribed a term deposit? (binary: 'yes','no')
 
-### EDA
-#### Correlation with target
+## EDA
+### Correlation with target
 ![Correlation Heatmap](/Images/corr_heatmap.png)
 
 Contact duration is highly correlated witht the subscription outcome.
 
-#### Kernel Density Estimate plot of clients' age
+### Kernel Density Estimate plot of clients' age
 ![Age KDE](/Images/EDA_age_KDE.png)
 
 A higher proportion of clients below 30 years old and above 60 years old subscribed for a term deposit.
 
-#### Distribution of contact duration
+### Distribution of contact duration
 ![Contact Duration](/Images/EDA_duration.png)
 
 The longer the contact duration, it is more likely for the client to subscribe for a term deposit.
 
-#### Subscription outcome based on month of contact
+### Subscription outcome based on month of contact
 ![Month](/Images/EDA_month.png)
 
 More than **60%** of the clients were contacted from May to August but the clients tend to not subscribe for a term deposit during this period.
 
-#### Subscription outcome based on job type
+### Subscription outcome based on job type
 ![Job](/Images/EDA_job.png)
+
+Most of the bank's clients are working in management and slightly more than half of them subscribed for a term deposit.
+Clients that are students and retirees have a higher chance of subscribing for a term deposit.
+
+## Data pre-processing
+
+### Cyclical features - convert day_of_month and month_of_year
+'''python
+df['day_sin'] = np.sin(df.day*(2.*np.pi/24))
+df['day_cos'] = np.cos(df.day*(2.*np.pi/24))
+df['month_sin'] = np.sin((df.month-1)*(2.*np.pi/12))
+df['month_cos'] = np.cos((df.month-1)*(2.*np.pi/12))
+''''
+
+## Modelling
+
+### Base model - Logistic Regression
+F1 score - 0.784
+
+### Random Forest Classifier
+Mean F1 score from 5-fold cross validation - 0.844
+
+### Gradient Boosting Classifier
+Mean F1 score from 5-fold cross validation - 0.839
