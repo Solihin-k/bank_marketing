@@ -139,7 +139,7 @@ For this case, a false negative is more costly than a false positive.
 
 ## Possible Solutions
 
-![Telemarketing](/Images/telemarketing/jpg)
+![Telemarketing](/Images/telemarketing.jpg)
 
 ```python
 rf.predict_proba(test_set_prep)
