@@ -46,5 +46,126 @@ The implementation of this model will allow the bank to identify which clients t
 #### Target variable:
 17 - deposit: has the client subscribed a term deposit? (binary: 'yes','no')
 
-### EDA
+## EDA
 
+### Correlation with target
+![Correlation Heatmap](/Images/corr_heatmap.png)
+
+Contact duration is highly correlated witht the subscription outcome.
+
+### Kernel Density Estimate plot of clients' age
+![Age KDE](/Images/EDA_age_KDE.png)
+
+A higher proportion of clients below 30 years old and above 60 years old subscribed for a term deposit.
+
+### Distribution of contact duration
+![Contact Duration](/Images/EDA_duration.png)
+
+The longer the contact duration, it is more likely for the client to subscribe for a term deposit.
+
+### Subscription outcome based on month of contact
+![Month](/Images/EDA_month.png)
+
+More than **60%** of the clients were contacted from May to August but the clients tend to not subscribe for a term deposit during this period.
+
+### Subscription outcome based on job type
+![Job](/Images/EDA_job.png)
+
+Most of the bank's clients are working in management and slightly more than half of them subscribed for a term deposit.
+Clients that are students and retirees have a higher chance of subscribing for a term deposit.
+
+## Data pre-processing
+
+### Transformation pipeline
+```python
+def transform(df):
+    """
+    Prep the train and test set for machine learning.
+        - encoding categorical variables with one-hot encoding
+        - convert days and months (cyclical features) into a proper representaion
+    
+    Input: dataframe
+    Output: transformed dataframe
+    
+    """
+    df = pd.get_dummies(df, columns = cat_var)
+    
+    df = df.replace({'month' : month_dict})
+    
+    df['day_sin'] = np.sin(df.day*(2.*np.pi/24))
+    df['day_cos'] = np.cos(df.day*(2.*np.pi/24))
+    df['month_sin'] = np.sin((df.month-1)*(2.*np.pi/12))
+    df['month_cos'] = np.cos((df.month-1)*(2.*np.pi/12))
+
+    df.drop(columns = ['day', 'month'], inplace = True)
+    
+    return df
+```
+
+The above function will allow us to easily transform the test set for prediction.
+
+## Modelling
+
+### Base model - Logistic Regression
+F1 score - 0.792
+
+### Random Forest Classifier
+Mean F1 score from 5-fold cross validation - 0.848
+
+### Gradient Boosting Classifier
+Mean F1 score from 5-fold cross validation - 0.841
+
+## Feature Importance
+
+### Top 15 features
+![Feature Importance](/Images/feature_importance.png)
+
+Cyclical features are better represented in terms of sines and cosines.
+
+## Predictions for test set
+
+F1 score - 0.844
+The model is able to generalise well to new data, getting a similar score as for the training set.
+
+### Confusion Matrix
+
+![Confusion Matrix](/Images/confusion_matrix.png)
+
+The model performs better at predicting for clients that subscribed for a term deposit.
+
+For this case, a false negative is more costly than a false positive. 
+- A false negative would mean a client is more likely to subscribe for a term deposit but no contact was made from the bank (missed out on potential revenue). 
+- A false positive would mean that the bank made contacts but the client is more likely to not subscribe for a term deposit (waste of marketing effort and resources).
+
+## Possible Solutions
+
+![Telemarketing](/Images/telemarketing/jpg)
+
+```python
+rf.predict_proba(test_set_prep)
+```
+
+array([[0.43, 0.57], <br>
+       [0.89, 0.11], <br>
+       [0.07, 0.93], <br>
+       ..., <br>
+       [0.78, 0.22], <br>
+       [0.95, 0.05], <br>
+       [0.97, 0.03]])
+
+We can use the probabilities to classify the clients based on their likelihood of subscribing for a term deposit.
+
+    - >= 0.6, clients to target
+    - >= 0.4 < 0.6, to monitor and get additional data (no. of dependents, annual income, term deposit at other banks etc)
+    - < 0.4, to market different services (credit card, loans etc)
+    
+For clients to target, as the contact duration is the most important feature, it is recommended to have a longer contact duration to convince the client.
+
+It was also determined that more than 80% of clients that subscribed for a term deposit before opted to subscribe for another term. The bank could introduce some form of **loyalty marketing** (e.g. higher interest rates for second and subsequent term deposits).
+
+As for students and retirees, the bank could come up with a special plan to attract more clients from these group. <br>
+For example, the bank could tie up with schools or reduce the minimum deposit amount to allow more students to be able to commit. 
+
+For retirees, the bank could come up with a 'Deposit-Retirement-Account' (a term deposit specific for their retirement needs. They may also tie up with insurance services companies to further enhance their Deposit-Retirmenet schemes.
+
+More than **60%** of the clients were contacted during May to August but clients tend to not subscribe for a term deposit during this period. The bank could look into this in detail and find out if there is any underlying reason (one possible reason is that the notice of assesment for income tax is usually out during this period and clients would prefer to set aside some money to pay off their taxes).
