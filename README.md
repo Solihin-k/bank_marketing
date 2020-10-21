@@ -110,7 +110,7 @@ The above function will allow us to easily transform the test set for prediction
 F1 score - 0.792
 
 ### Random Forest Classifier
-Mean F1 score from 5-fold cross validation - 0.848
+Mean F1 score from 5-fold cross validation - 0.849
 
 ### Gradient Boosting Classifier
 Mean F1 score from 5-fold cross validation - 0.841
@@ -124,7 +124,7 @@ Cyclical features are better represented in terms of sines and cosines.
 
 ## Predictions for test set
 
-F1 score - 0.844
+F1 score - 0.842
 The model is able to generalise well to new data, getting a similar score as for the training set.
 
 ### Confusion Matrix
