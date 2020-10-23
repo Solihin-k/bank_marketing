@@ -122,9 +122,9 @@ Mean F1 score from 5-fold cross validation - 0.841
 
 Cyclical features are better represented in terms of sines and cosines.
 
-## Predictions for test set
+## Predictions for test set with Random Forest Classifier
 
-F1 score - 0.842
+F1 score - 0.844
 The model is able to generalise well to new data, getting a similar score as for the training set.
 
 ### Confusion Matrix
