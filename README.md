@@ -56,17 +56,22 @@ Contact duration is highly correlated witht the subscription outcome.
 ### Kernel Density Estimate plot of clients' age
 ![Age KDE](/Images/EDA_age_KDE.png)
 
-A higher proportion of clients below 30 years old and above 60 years old subscribed for a term deposit.
+There is a higher proportion of clients below 30 years old and above 60 years old that subscribed for a term deposit. Most of the clients are beyween 30 to 40 years old.
 
 ### Distribution of contact duration
 ![Contact Duration](/Images/EDA_duration.png)
 
-The longer the contact duration, it is more likely for the client to subscribe for a term deposit.
+Clients with a longer duration of contact generally ended up subscribing for a term deposit.
+If we assume 5 mins is the minimum amount of time for a telemarketer to convince a client, out of those that were contacted for a tleast 5 mins:
+- 27.8% of them did not subscribe
+- 72.2% of them subscribed
 
 ### Subscription outcome based on month of contact
 ![Month](/Images/EDA_month.png)
 
 More than **60%** of the clients were contacted from May to August but the clients tend to not subscribe for a term deposit during this period.
+Months above average: 'apr', 'dec', 'mar', 'oct', 'sep'
+Months below average: 'aug', 'feb', 'jan', 'jul', 'jun', 'may', 'nov'
 
 ### Subscription outcome based on job type
 ![Job](/Images/EDA_job.png)
@@ -88,16 +93,25 @@ def transform(df):
     Output: transformed dataframe
     
     """
+    
+    # convert categorical variables
     df = pd.get_dummies(df, columns = cat_var)
     
-    df = df.replace({'month' : month_dict})
+    df = df.replace({'month_of_year' : month_dict})
     
-    df['day_sin'] = np.sin(df.day*(2.*np.pi/24))
-    df['day_cos'] = np.cos(df.day*(2.*np.pi/24))
-    df['month_sin'] = np.sin((df.month-1)*(2.*np.pi/12))
-    df['month_cos'] = np.cos((df.month-1)*(2.*np.pi/12))
+    # convert cyclical features
+    df['day_sin'] = np.sin(df.day_of_month*(2.*np.pi/24))
+    df['day_cos'] = np.cos(df.day_of_month*(2.*np.pi/24))
+    df['month_sin'] = np.sin((df.month_of_year-1)*(2.*np.pi/12))
+    df['month_cos'] = np.cos((df.month_of_year-1)*(2.*np.pi/12))
 
-    df.drop(columns = ['day', 'month'], inplace = True)
+    df.drop(columns = ['day_of_month', 'month_of_year'], inplace = True)
+    
+    # normalize variables
+    scaled_norm_var = df[norm_var]
+    scaler = StandardScaler().fit(scaled_norm_var.values)
+    scaled_norm_var = scaler.transform(scaled_norm_var.values)
+    df[norm_var] = scaled_norm_var
     
     return df
 ```
@@ -107,7 +121,7 @@ The above function will allow us to easily transform the test set for prediction
 ## Modelling
 
 ### Base model - Logistic Regression
-F1 score - 0.792
+F1 score - 0.790
 
 ### Random Forest Classifier
 Mean F1 score from 5-fold cross validation - 0.849
@@ -122,9 +136,9 @@ Mean F1 score from 5-fold cross validation - 0.841
 
 Cyclical features are better represented in terms of sines and cosines.
 
-## Predictions for test set
+## Predictions for test set with Random Forest Classifier
 
-F1 score - 0.842
+F1 score - 0.845
 The model is able to generalise well to new data, getting a similar score as for the training set.
 
 ### Confusion Matrix
