@@ -183,3 +183,13 @@ For example, the bank could tie up with schools or reduce the minimum deposit am
 For retirees, the bank could come up with a 'Deposit-Retirement-Account' (a term deposit specific for their retirement needs. They may also tie up with insurance services companies to further enhance their Deposit-Retirmenet schemes.
 
 More than **60%** of the clients were contacted during May to August but clients tend to not subscribe for a term deposit during this period. The bank could look into this in detail and find out if there is any underlying reason (one possible reason is that the notice of assesment for income tax is usually out during this period and clients would prefer to set aside some money to pay off their taxes).
+
+## Example Scenario
+Consider the following example. Each call made by the bank costs \\$5 and the bank has a marketing budget of \\$500,000. <br> Assume also that from each subscription, the bank generates \\$100 in revenue and based on the dataset about 47\% of calls result in a subscription.
+
+So the bank would get 4700 subscriptions from 10000 calls, getting a profit of **$420,000**.
+
+The precision of the model on the test set is **0.81** (949 / (949 + 217)). <br>
+If the bank made the same amount of calls (10000), it could gain more than 8000 subscriptions. This would result in profits of **$750,000**, almost 79\% increase!
+
+Another scenario could be when the bank have a target number of subscriptions (say 6000) to achieve. Without predictive modelling, the bank would need to make about 12765 calls compared to 7407 calls with it. This results in direct savings on marketing costs of about \$26,790.
